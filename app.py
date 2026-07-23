@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 from io import BytesIO
+from typing import Any
 
 # Page configuration
 st.set_page_config(
@@ -68,7 +69,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-def load_sample_data():
+def load_sample_data() -> pd.DataFrame:
     """Generate sample data for demonstration"""
     asins = []
     categories = []
@@ -95,7 +96,7 @@ def load_sample_data():
     
     return df
 
-def process_uploaded_file(uploaded_file):
+def process_uploaded_file(uploaded_file: Any) -> pd.DataFrame | None:
     """Process the uploaded file and return DataFrame"""
     try:
         if uploaded_file.name.endswith('.csv'):
@@ -145,7 +146,7 @@ def process_uploaded_file(uploaded_file):
         st.error(f"❌ Error processing file: {str(e)}")
         return None
 
-def create_category_distribution_chart(df):
+def create_category_distribution_chart(df: pd.DataFrame) -> go.Figure:
     """Create a modern donut chart for category distribution"""
     category_counts = df['Category'].value_counts()
     
@@ -181,7 +182,7 @@ def create_category_distribution_chart(df):
     
     return fig
 
-def create_category_bar_chart(df):
+def create_category_bar_chart(df: pd.DataFrame) -> go.Figure:
     """Create a modern bar chart for category distribution"""
     category_counts = df['Category'].value_counts().sort_index()
     
@@ -222,7 +223,7 @@ def create_category_bar_chart(df):
     
     return fig
 
-def create_treemap(df):
+def create_treemap(df: pd.DataFrame) -> go.Figure:
     """Create a treemap visualization"""
     category_counts = df['Category'].value_counts()
     
